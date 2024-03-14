@@ -1,0 +1,68 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	
+	   //jsp 관련   
+   implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.18'
+   compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+   implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+   implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+      
+   //pdf관련
+   implementation 'com.itextpdf:itextpdf:5.5.13.3'
+   implementation 'com.itextpdf:itext-pdfa:5.5.13.3'
+   implementation 'com.itextpdf:itext-xtra:5.5.13.3'
+   implementation 'com.itextpdf.tool:xmlworker:5.5.13.3'
+   implementation 'com.itextpdf:itext-asian:5.2.0'   
+   
+
+   //google chart 관련
+   implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+   implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+   
+   //jfreechart 관련
+   implementation 'org.jfree:jfreechart:1.5.4'
+   
+   //email 관련
+   implementation 'org.springframework.boot:spring-boot-starter-mail:3.2.2'
+   
+   //aop 관련
+   implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.2'
+   
+   //파일업로드 관련
+   implementation 'org.apache.tomcat:tomcat-util:10.1.18'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
