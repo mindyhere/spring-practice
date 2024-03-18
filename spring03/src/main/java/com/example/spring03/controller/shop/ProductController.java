@@ -18,17 +18,17 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/shop/product/*")
+@RequestMapping("/shop/product/*") // 공통패턴
 public class ProductController {
 	@Autowired
 	ProductDAO productDao;
 
-	@GetMapping("write.do")
-	public String write() {
-		return "shop/product_write";
-	}
+//	@GetMapping("write.do")
+//	public String write() {
+//		return "shop/product_write";
+//	}
 
-	@PostMapping("insert.do")
+	@RequestMapping("insert.do")
 	public String insert(ProductDTO dto, HttpServletRequest request) {
 		String filename = "-";
 		if (!dto.getFile1().isEmpty()) {
@@ -56,17 +56,20 @@ public class ProductController {
 		return mav;
 	}
 
-	@GetMapping("edit/{product_code}")
-	public ModelAndView edit(@PathVariable(name = "product_code") int product_code, ModelAndView mav) {
-		mav.setViewName("/shop/product_edit");
-		mav.addObject("dto", productDao.detail(product_code));
-		return mav;
-	}
+//	@GetMapping("edit/{product_code}") // 세부패턴
+//	public ModelAndView edit(@PathVariable(name = "product_code") int product_code, ModelAndView mav) {
+		//				@PathVariable → 패스변수
+//		mav.setViewName("/shop/product_edit");
+//		mav.addObject("dto", productDao.detail(product_code));
+//		return mav;
+//	}
 
 	@PostMapping("update.do")
 	public String update(ProductDTO dto, HttpServletRequest request) {
+		//								폼데이터+파일
 		String filename = "-";
 		if (!dto.getFile1().isEmpty()) {
+			// 첨부파일이 있을 때
 			filename = dto.getFile1().getOriginalFilename();
 			try {
 				ServletContext application = request.getSession().getServletContext();
@@ -78,6 +81,7 @@ public class ProductController {
 			}
 			dto.setFilename(filename);
 		} else {
+			// 첨부파일이 없을 때
 			ProductDTO dto2 = productDao.detail(dto.getProduct_code());
 			dto.setFilename(dto2.getFilename());
 		}
@@ -107,5 +111,17 @@ public class ProductController {
 		mav.addObject("dto", productDao.detail(product_code));
 		return mav;
 	}
-
+	
+	//summernote 실습
+	@GetMapping("write.do")
+	public String write() {
+		return "shop/product_write_sm";
+	}
+	
+	@GetMapping("edit/{product_code}")
+	public ModelAndView edit(@PathVariable("product_code") int product_code, ModelAndView mav) {
+		mav.setViewName("/shop/product_edit_sm");
+		mav.addObject("dto", productDao.detail(product_code));
+		return mav;
+	}
 }
