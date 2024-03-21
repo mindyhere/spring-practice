@@ -15,6 +15,7 @@
 <a href="/email/write.do">이메일발송</a>&nbsp;&nbsp;|
 <a href="/member/address.do">도로명주소</a>&nbsp;&nbsp;|
 <a href="/upload/ajax_form">파일업로드</a>&nbsp;&nbsp;|
+<a href="/board/list.do">게시판</a>&nbsp;&nbsp;|
 
 <div style="text-align: right;">
 	<c:choose>

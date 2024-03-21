@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.spring03.service.board.BoardService;
 import com.example.spring03.util.UploadFileUtils;
 
 @Controller
 public class AjaxUploadController {
 	String upload_path = "c:/upload/";
+
+	@Autowired
+	BoardService boardService;
 
 	@GetMapping("/upload/ajax_form")
 	public String upload_form() {
@@ -33,7 +38,7 @@ public class AjaxUploadController {
 	public ResponseEntity<String> ajax_upload(@RequestParam(name = "file") MultipartFile file) throws Exception {
 		String filename = UploadFileUtils.uploadFile(upload_path, file.getOriginalFilename(), file.getBytes());
 		return new ResponseEntity<String>(filename, HttpStatus.OK);
-		//										데이터+상태코드
+		// 데이터+상태코드
 	}
 
 	@ResponseBody
@@ -49,7 +54,7 @@ public class AjaxUploadController {
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			headers.add("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
-			//																파일데이터(바이트코드)+상태코드
+			// 파일데이터(바이트코드)+상태코드
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
@@ -68,6 +73,7 @@ public class AjaxUploadController {
 	@PostMapping(value = "/upload/delete_file")
 	public ResponseEntity<String> delete_file(@RequestParam(name = "file_name") String file_name) {
 		new File(file_name.replace("/", File.separator)).delete();
+		boardService.delete_attach(file_name);
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 }
