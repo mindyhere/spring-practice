@@ -2,9 +2,17 @@
 <configuration debug="true">
 
 	<!-- Appenders -->
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	<!-- <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<Pattern>%d %5p [%c] %m%n</Pattern>
+		</encoder>
+	</appender> -->
+	
+	<!-- Appenders -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%highlight(%-5level)] %logger{36} - %msg%n</pattern>
+			<outputPatternAsHeader>true</outputPatternAsHeader>
 		</encoder>
 	</appender>
 
@@ -23,4 +31,6 @@
 	<root level="INFO">
 		<appender-ref ref="console" />
 	</root>
+	
+	
 </configuration>
