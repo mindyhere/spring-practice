@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!-- viewport 현재 보이는 화면 -->
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<!-- th:타임리프 속성, @:리소스 → src/main/resources/static  -->
+<script src="http://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script th:src="@{/js/bootstrap.js}"></script>
+</head>
+<body>
+	<div class="container">
+		<h2 class="text_center">회원목록</h2>
+		<button type="button" class="btn btn-primary" onclick="location.href='write'">회원등록</button>
+		<table class="table table-hover table-bordered">
+			<tr>
+				<td>아이디</td>
+				<td>이름</td>
+				<td>이메일</td>
+				<td>가입일자</td>
+			</tr>
+			<!-- th:each="개별데이터:${리스트}" → 반복문 -->
+			<tr th:each="row:${list}">
+				<td>[[${row.userid}]]</td>
+				<td><a th:href="@{view(userid=${row.userid})}">[[${row.name}]]</a></td>
+				<!-- localhost/view?변수=값 ↔ @{view(변수=${값})} -->
+				<td>[[${row.email}]]</td>
+				<td>[[${#dates.format(row.join_date, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
