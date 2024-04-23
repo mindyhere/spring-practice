@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springmvc.model.dto.ProductDTO;
@@ -72,10 +71,10 @@ public class MainController {
 	public void doE() {
 	}
 	
-	@PostMapping("test/doF")
-	public @ResponseBody ProductDTO background() {
-		ProductDTO dto=new ProductDTO("TV", 500000);
-		return dto;
-	}
+//	@PostMapping("test/doF")
+//	public @ResponseBody ProductDTO background() {
+//		ProductDTO dto=new ProductDTO("TV", 500000);
+//		return dto;
+//	}
 
 }
