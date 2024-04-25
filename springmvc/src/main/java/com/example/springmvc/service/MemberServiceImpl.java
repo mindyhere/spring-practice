@@ -36,29 +36,4 @@ public class MemberServiceImpl implements MemberService {
 		return list;
 	}
 
-	@Override
-	public void insertMember(MemberDTO dto) {
-		memberDao.insertMember(dto);
-	}
-
-	@Override
-	public MemberDTO viewMember(String userid) {
-		return memberDao.viewMember(userid);
-	}
-
-	@Override
-	public void deleteMember(String userid) {
-		memberDao.deleteMember(userid);
-	}
-
-	@Override
-	public void updateMember(MemberDTO dto) {
-		memberDao.updateMember(dto);
-	}
-
-	@Override
-	public boolean checkPw(String userid, String passwd) {
-		return memberDao.checkPw(userid, passwd);
-	}
-
 }
